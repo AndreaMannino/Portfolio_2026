@@ -214,6 +214,15 @@ section { padding: 6rem 0; }
   color: var(--ink);
 }
 
+.card-close-row {
+  display: none;          /* nascosto di default */
+  padding: 0 1.5rem 1.5rem;
+}
+
+.card-close-row.visible {
+  display: block;
+}
+
 /* ─── SECTION HEADER ──────────────────────────────────── */
 
 .section-label {
@@ -729,36 +738,73 @@ footer p {
 /* ─── RESPONSIVE ──────────────────────────────────────── */
 
 @media (max-width: 768px) {
-  nav { padding: 1rem 1.25rem; }
+
+  /* ─── NAV ─── */
+  nav {
+    padding: 1rem 1.25rem;
+  }
   .nav-links { gap: 1rem; }
+  .nav-links a { font-size: 11px; }
+
+  /* ─── LAYOUT ─── */
   .container { padding: 0 1.25rem; }
   section { padding: 4rem 0; }
 
-  .projects-grid { grid-template-columns: 1fr; }
+  /* ─── HERO ─── */
+  #hero {
+    padding-top: 7rem;
+    padding-bottom: 4rem;
+  }
+  .hero-bio { max-width: 100%; }
 
+  /* ─── PROGETTI ─── */
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card.featured .project-title { font-size: 1.6rem; }
+
+  /* ─── ACCORDION ─── */
   .project-detail-container {
     grid-template-columns: 1fr;
     padding: 0 1.25rem;
   }
-
   .project-detail-container.open {
     padding: 0.75rem 1.25rem 2rem;
   }
-
-  /* Testo sale sopra il visual su mobile */
   .detail-col--text   { order: 1; }
   .detail-col--visual { order: 2; align-items: flex-start; }
-
-  /* Tutto il visual torna fluido */
   .detail-col--visual > * {
     width: 100% !important;
     max-width: 100%;
-    margin-left: 0;
     flex-shrink: 1;
   }
 
+  /* ─── IMG ROW ─── */
+  .img-row { flex-direction: column; }
+  .img-row .detail-img { width: 100% !important; }
+
+  /* ─── CASE STUDY ─── */
   .cs-body { grid-template-columns: 1fr; }
-  .cs-image-placeholder { grid-column: 1; }
-  .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+  .cs-image-placeholder {
+    grid-column: 1;
+    height: 180px;
+  }
+
+  /* ─── EXPERIENCE ─── */
+  .exp-item {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  /* ─── CONTACT ─── */
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 1.5rem 1.25rem;
+  }
 }
