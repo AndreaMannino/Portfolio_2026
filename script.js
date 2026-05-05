@@ -11,10 +11,10 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
 
+
 // ─── ACCORDION ─────────────────────────────────────────
 
 function openDetail(container) {
-  // Misura l'altezza reale prima di aprire
   container.style.maxHeight = 'none';
   const realH = container.scrollHeight;
   container.style.maxHeight = '0px';
@@ -22,24 +22,26 @@ function openDetail(container) {
   container.classList.add('open');
   container.style.maxHeight = realH + 'px';
 
-  // Dopo la transizione, lascia a 'none' per contenuti variabili
   container.addEventListener('transitionend', () => {
     if (container.classList.contains('open')) {
       container.style.maxHeight = 'none';
     }
   }, { once: true });
 
-  // Avvia il reveal progressivo degli elementi interni
+  // Mostra il bottone fuori dal container
+  const closeRow = container.nextElementSibling;
+  if (closeRow?.classList.contains('card-close-row')) {
+    closeRow.classList.add('visible');
+  }
+
   startReveal(container);
 }
 
 
 function closeDetail(container) {
-  // Blocca l'altezza corrente prima di animare a 0
   container.style.maxHeight = container.scrollHeight + 'px';
   container.classList.add('closing');
 
-  // Reset elementi rivelati
   const items = container.querySelectorAll(
     '.detail-col--visual > *, .detail-col--text > *'
   );
@@ -56,6 +58,12 @@ function closeDetail(container) {
     container.classList.remove('open', 'closing');
     container.style.maxHeight = '';
   }, { once: true });
+
+  // Nasconde il bottone fuori dal container
+  const closeRow = container.nextElementSibling;
+  if (closeRow?.classList.contains('card-close-row')) {
+    closeRow.classList.remove('visible');
+  }
 }
 
 
@@ -63,7 +71,6 @@ function startReveal(container) {
   const visualItems = [...container.querySelectorAll('.detail-col--visual > *')];
   const textItems   = [...container.querySelectorAll('.detail-col--text > *')];
 
-  // Stagger: ogni elemento appare 80ms dopo il precedente
   [...visualItems, ...textItems].forEach((el, i) => {
     el.style.transitionDelay = `${i * 80}ms`;
   });
@@ -79,8 +86,11 @@ function startReveal(container) {
 
   [...visualItems, ...textItems].forEach(el => revealIo.observe(el));
 
-  // Auto-close: quando il close-btn esce in alto (l'utente ha scrollato oltre)
-  const closeBtn = container.querySelector('.btn-action');
+  // Auto-close: osserva il bottone fuori dal container
+  const card = container.closest('.project-card');
+  const closeRow = container.nextElementSibling;
+  const closeBtn = closeRow?.querySelector('.card-close-btn');
+
   if (!closeBtn) return;
 
   const exitIo = new IntersectionObserver((entries) => {
@@ -89,8 +99,6 @@ function startReveal(container) {
       if (!e.isIntersecting && scrolledPast) {
         closeDetail(container);
 
-        // Scroll torna all'header della card
-        const card = container.closest('.project-card');
         const offset = card.getBoundingClientRect().top + window.scrollY - 100;
         window.scrollTo({ top: offset, behavior: 'smooth' });
 
@@ -101,6 +109,7 @@ function startReveal(container) {
 
   exitIo.observe(closeBtn);
 }
+
 
 
 // ─── CLICK APERTURA ────────────────────────────────────
@@ -116,11 +125,12 @@ document.querySelectorAll('.project-header').forEach(header => {
 });
 
 
+
 // ─── CLICK CHIUDI (bottone) ────────────────────────────
 document.addEventListener('click', e => {
-  if (e.target.classList.contains('btn-action')) {
-    const container = e.target.closest('.project-detail-container');
-    const card = container.closest('.project-card');
+  if (e.target.classList.contains('card-close-btn')) {
+    const card = e.target.closest('.project-card');
+    const container = card.querySelector('.project-detail-container');
 
     closeDetail(container);
 
