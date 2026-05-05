@@ -14,7 +14,7 @@
   --max: 900px;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box;  padding: 0; }
 
 html { scroll-behavior: smooth; }
 
@@ -154,6 +154,7 @@ section { padding: 6rem 0; }
   flex-wrap: wrap;
 }
 
+
 /* ─── BUTTONS ─────────────────────────────────────────── */
 
 
@@ -235,7 +236,6 @@ section { padding: 6rem 0; }
 }
 
 /* ─── PROJECTS ────────────────────────────────────────── */
-
 
 
 #projects { border-bottom: 1px solid var(--border); }
@@ -366,6 +366,30 @@ section { padding: 6rem 0; }
   margin-bottom: 0.8rem;
 }
 
+/* ─── CARD OSCURATA ───────────────────────────────────── */
+
+.project-card.soon { 
+  pointer-events: none; /*blocca il click*/
+ }
+
+.project-card.soon::before {
+  content: '.See you soon.';
+  position: absolute;
+  inset: -2px;          /* copre anche il bordo */
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
 /* ─── ACCORDION ───────────────────────────────────────── */
 
 /* Chiuso */
