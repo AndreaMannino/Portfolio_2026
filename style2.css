@@ -26,7 +26,6 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   cursor: default;
-  /* overflow-x: hidden rimosso — tagliava le immagini bleed */
 }
 
 /* ─── NAV ─────────────────────────────────────────────── */
@@ -41,7 +40,7 @@ nav {
   padding: 1.25rem 2.5rem;
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--accent);
 }
 
 .nav-logo {
@@ -111,7 +110,7 @@ section { padding: 6rem 0; }
 #hero {
   padding-top: 10rem;
   padding-bottom: 7rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--accent);
 }
 
 .hero-tag {
@@ -238,7 +237,7 @@ section { padding: 6rem 0; }
 /* ─── PROJECTS ────────────────────────────────────────── */
 
 
-#projects { border-bottom: 1px solid var(--border); }
+#projects { border-bottom: 1px solid var(--accent); }
 
 .projects-grid {
   display: grid;
@@ -598,7 +597,7 @@ section { padding: 6rem 0; }
 
 /* ─── EXPERIENCE ──────────────────────────────────────── */
 
-#experience { border-bottom: 1px solid var(--border); }
+#experience { border-bottom: 1px solid var(--accent); }
 
 .exp-list {
   display: flex;
@@ -702,7 +701,7 @@ section { padding: 6rem 0; }
 /* ─── FOOTER ──────────────────────────────────────────── */
 
 footer {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--accent);
   padding: 2rem 2.5rem;
   display: flex;
   justify-content: space-between;
